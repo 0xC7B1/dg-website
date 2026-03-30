@@ -10,6 +10,33 @@ import { FilterBar } from '@/components/ui/filter-bar';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
+function ArtworkImage({ artwork }: { artwork: typeof artworks[number] }) {
+  const [imgError, setImgError] = useState(false);
+
+  return (
+    <div
+      className="relative overflow-hidden bg-bg-tertiary"
+      style={{ aspectRatio: `${artwork.width}/${artwork.height}` }}
+    >
+      {!imgError ? (
+        <img
+          src={artwork.image}
+          alt={artwork.title}
+          loading="lazy"
+          onError={() => setImgError(true)}
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      ) : (
+        <div className="h-full w-full dot-matrix-bg flex items-center justify-center">
+          <span className="font-mono text-sm text-text-tertiary">
+            {artwork.title}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // Sample data — in production, loaded at build time from content files
 const articles = [
   {
@@ -139,15 +166,7 @@ export default function GalleryPage() {
                     onClick={() => setLightboxSrc(artwork.image)}
                   >
                     <PixelCard hoverable className="overflow-hidden">
-                      {/* Image placeholder */}
-                      <div
-                        className="bg-bg-tertiary dot-matrix-bg flex items-center justify-center"
-                        style={{ aspectRatio: `${artwork.width}/${artwork.height}` }}
-                      >
-                        <span className="font-mono text-sm text-text-tertiary">
-                          {artwork.title}
-                        </span>
-                      </div>
+                      <ArtworkImage artwork={artwork} />
                       <div className="p-3">
                         <p className="font-mono text-xs text-text-primary">{artwork.title}</p>
                         <p className="text-xs text-text-tertiary mt-1">by {artwork.author}</p>

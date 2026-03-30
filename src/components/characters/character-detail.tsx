@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils';
 import type { Character } from '@/types/character';
 import { CMYKPanel } from './cmyk-panel';
+import { FallbackImage } from '@/components/ui/fallback-image';
 import { motion } from 'framer-motion';
 
 interface CharacterDetailProps {
@@ -29,9 +30,13 @@ export function CharacterDetail({ character, className }: CharacterDetailProps) 
       transition={{ duration: 0.25 }}
       className={cn('p-6 overflow-y-auto h-full', className)}
     >
-      {/* Portrait placeholder */}
-      <div className="w-full aspect-[3/4] max-w-xs mx-auto mb-6 pixel-border bg-bg-tertiary flex items-center justify-center">
-        <span className="font-mono text-4xl text-text-tertiary">{character.name[0]}</span>
+      {/* Portrait */}
+      <div className="w-full aspect-[3/4] max-w-xs mx-auto mb-6 pixel-border bg-bg-tertiary overflow-hidden flex items-center justify-center">
+        <FallbackImage
+          src={character.portrait}
+          alt={character.name}
+          fallback={<span className="font-mono text-4xl text-text-tertiary">{character.name[0]}</span>}
+        />
       </div>
 
       {/* Name and tagline */}

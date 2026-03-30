@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils';
 import type { Character } from '@/types/character';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { FallbackImage } from '@/components/ui/fallback-image';
 
 interface AvatarCardProps {
   character: Character;
@@ -21,14 +22,18 @@ function AvatarCard({ character, active, onClick }: AvatarCardProps) {
           : 'border-transparent text-text-secondary hover:text-text-primary hover:bg-bg-hover'
       )}
     >
-      {/* Avatar placeholder */}
+      {/* Avatar */}
       <div
         className={cn(
-          'w-10 h-10 shrink-0 pixel-border bg-bg-tertiary flex items-center justify-center font-mono text-xs',
+          'w-10 h-10 shrink-0 pixel-border bg-bg-tertiary overflow-hidden flex items-center justify-center font-mono text-xs',
           active ? 'text-accent-cyan' : 'text-text-tertiary'
         )}
       >
-        {character.name[0]}
+        <FallbackImage
+          src={character.avatar}
+          alt={character.name}
+          fallback={<span>{character.name[0]}</span>}
+        />
       </div>
       <div className="min-w-0">
         <p className="font-mono text-sm truncate">{character.name}</p>

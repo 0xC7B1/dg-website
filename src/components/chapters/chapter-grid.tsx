@@ -13,6 +13,8 @@ interface ChapterCardProps {
 }
 
 function ChapterCard({ chapter, isExpanded, onHover, onLeave }: ChapterCardProps) {
+  const [imgError, setImgError] = useState(false);
+
   return (
     <Link
       href={`/chapters/${chapter.slug}`}
@@ -24,9 +26,27 @@ function ChapterCard({ chapter, isExpanded, onHover, onLeave }: ChapterCardProps
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
-      {/* Background gradient placeholder (replace with image) */}
-      <div className="absolute inset-0 bg-gradient-to-b from-bg-tertiary to-bg-primary opacity-50" />
-      <div className="absolute inset-0 dot-matrix-bg opacity-10" />
+      {/* Background image (falls back to gradient) */}
+      {!imgError ? (
+        <img
+          src={chapter.thumbnail}
+          alt={chapter.title}
+          loading="lazy"
+          onError={() => setImgError(true)}
+          className={cn(
+            'absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-300',
+            isExpanded ? 'opacity-80' : 'opacity-60'
+          )}
+        />
+      ) : (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-b from-bg-tertiary to-bg-primary opacity-50" />
+          <div className="absolute inset-0 dot-matrix-bg opacity-10" />
+        </>
+      )}
+
+      {/* Gradient overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/60 to-transparent" />
 
       {/* Hover overlay */}
       <div className={cn(

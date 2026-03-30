@@ -1,3 +1,8 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { GlitchText } from '@/components/effects/glitch-text';
 import { PixelButton } from '@/components/ui/pixel-button';
@@ -7,69 +12,151 @@ interface HeroSectionProps {
   className?: string;
 }
 
+function HeroLogo({ visible }: { visible: boolean }) {
+  // Flip this to true when a video asset is ready
+  const useVideo = false;
+
+  if (useVideo) {
+    return (
+      <video
+        autoPlay
+        muted
+        playsInline
+        className={cn(
+          'transition-opacity duration-500',
+          visible ? 'opacity-100' : 'opacity-0'
+        )}
+      >
+        <source src="/images/hero/logo.webm" type="video/webm" />
+      </video>
+    );
+  }
+
+  return (
+    <div
+      className={cn(
+        'transition-opacity duration-500',
+        visible ? 'opacity-100' : 'opacity-0'
+      )}
+    >
+      <GlitchText
+        text="DIGITAL_GHOST"
+        as="h1"
+        className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-[0.15em] text-text-primary"
+      />
+      <p className="font-mono text-sm md:text-base text-accent-cyan tracking-[0.2em] mt-3 opacity-70">
+        数字幽灵
+      </p>
+    </div>
+  );
+}
+
 export function HeroSection({ className }: HeroSectionProps) {
+  const [phase, setPhase] = useState(0);
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  // Phase transitions: 0→1 (300ms), 1→2 (1800ms), 2→3 (3000ms)
+  useEffect(() => {
+    const t1 = setTimeout(() => setPhase(1), 300);
+    const t2 = setTimeout(() => setPhase(2), 1800);
+    const t3 = setTimeout(() => setPhase(3), 3000);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
+  }, []);
+
+  // Scroll-based background fade
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const scrollFade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
+  // Phase-based BG opacity: 0 during phases 0-1, 1 at phase 2+
+  const phaseBgOpacity = phase >= 2 ? 1 : 0;
+
   return (
     <section
+      ref={heroRef}
       className={cn(
-        'relative min-h-[80vh] flex items-center justify-center overflow-hidden',
+        'relative h-screen -mt-14 flex flex-col items-center justify-center overflow-hidden',
         className
       )}
     >
-      {/* Background gradient + dot matrix pattern */}
-      <div className="absolute inset-0 bg-gradient-to-b from-bg-primary via-bg-secondary to-bg-primary" />
-      <div className="absolute inset-0 dot-matrix-bg opacity-20" />
+      {/* Background image with scroll fade */}
+      <motion.div
+        className="absolute inset-0"
+        style={{ opacity: scrollFade }}
+      >
+        <div
+          className="absolute inset-0 transition-opacity duration-1000"
+          style={{ opacity: phaseBgOpacity }}
+        >
+          <picture>
+            <source
+              media="(max-width: 768px)"
+              srcSet="/images/hero/hero-mobile.png"
+            />
+            <img
+              src="/images/hero/hero-pc.png"
+              alt=""
+              loading="eager"
+              className="h-full w-full object-cover object-center"
+            />
+          </picture>
+        </div>
+      </motion.div>
+
+      {/* Dark fallback behind image */}
+      <div className="absolute inset-0 bg-bg-primary" style={{ zIndex: -1 }} />
 
       {/* Vignette overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--color-bg-primary)_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--color-bg-primary)_100%)] z-[1]" />
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
-        {/* Terminal prefix */}
-        <p className="font-mono text-xs text-text-tertiary tracking-[0.3em] mb-6 animate-fade-in">
-          {'>'} SYSTEM.BOOT // DIGITAL_GHOST v1.0
-        </p>
+      {/* Content — logo animates downward at phase 2 */}
+      <motion.div
+        className="relative z-10 text-center px-6"
+        animate={{
+          y: phase >= 2 ? '10vh' : '0vh',
+        }}
+        transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+      >
+        <HeroLogo visible={phase >= 1} />
 
-        {/* Title */}
-        <GlitchText
-          text="数字幽灵"
-          as="h1"
-          className="text-5xl md:text-7xl font-bold tracking-[0.15em] text-text-primary mb-4"
-        />
-
-        {/* Subtitle */}
-        <p className="font-mono text-lg md:text-xl text-accent-cyan tracking-[0.1em] mb-2 animate-fade-in"
-           style={{ animationDelay: '0.2s', animationFillMode: 'backwards' }}>
-          DIGITAL GHOST
-        </p>
-
-        {/* Description */}
-        <p className="text-text-secondary text-base md:text-lg mt-6 mb-10 leading-relaxed animate-slide-up"
-           style={{ animationDelay: '0.4s', animationFillMode: 'backwards' }}>
-          一个基于用户生成内容的TRPG企划
-          <br />
-          <span className="text-text-tertiary text-sm">
-            在数据噪声中寻找真相，在信号干扰中书写故事
-          </span>
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-wrap gap-4 justify-center animate-slide-up"
-             style={{ animationDelay: '0.6s', animationFillMode: 'backwards' }}>
+        {/* CTA button — appears at phase 2 */}
+        <motion.div
+          className="mt-8"
+          initial={{ opacity: 0, y: 12 }}
+          animate={phase >= 2 ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
           <Link href="/chapters">
             <PixelButton variant="primary" size="lg">
               开始探索
             </PixelButton>
           </Link>
-          <Link href="/rules">
-            <PixelButton variant="outline" size="lg">
-              查看规则
-            </PixelButton>
-          </Link>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-bg-primary to-transparent" />
+      {/* Scroll-down indicator — appears at phase 3 */}
+      <motion.div
+        className="absolute bottom-8 z-10"
+        initial={{ opacity: 0 }}
+        animate={phase >= 3 ? { opacity: 0.6 } : { opacity: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <ChevronDown className="w-6 h-6 text-text-tertiary" />
+        </motion.div>
+      </motion.div>
+
+      {/* Bottom gradient fade to content */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-bg-primary to-transparent z-[1]" />
     </section>
   );
 }
