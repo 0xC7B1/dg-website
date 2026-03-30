@@ -1,0 +1,447 @@
+@import "tailwindcss";
+
+/* ========================================
+   DIGITAL GHOST — Design Tokens
+   ======================================== */
+
+@theme {
+  /* Backgrounds */
+  --color-bg-primary: #0a0a0c;
+  --color-bg-secondary: #12121a;
+  --color-bg-tertiary: #1a1a24;
+  --color-bg-hover: #22222e;
+
+  /* Text */
+  --color-text-primary: #e0e0e4;
+  --color-text-secondary: #8888a0;
+  --color-text-tertiary: #55556a;
+  --color-text-locked: #44445a;
+
+  /* Accents — CMYK mapped */
+  --color-accent-cyan: #00cccc;
+  --color-accent-magenta: #cc0066;
+  --color-accent-yellow: #cccc00;
+  --color-accent-key: #333344;
+
+  /* Functional */
+  --color-accent-green: #00cc66;
+  --color-accent-red: #cc3333;
+
+  /* Borders */
+  --color-border-default: #2a2a3a;
+  --color-border-active: #00cccc;
+
+  /* Effects */
+  --color-dot-matrix: #33334a;
+  --color-scanline: rgba(0, 0, 0, 0.08);
+  --color-noise: rgba(255, 255, 255, 0.02);
+
+  /* Font families */
+  --font-mono: "Share Tech Mono", monospace;
+  --font-sans: "Noto Sans SC", sans-serif;
+
+  /* Animation */
+  --animate-glitch: glitch 0.3s ease-in-out;
+  --animate-scanline: scanline 8s linear infinite;
+  --animate-noise: noise 0.15s steps(2) infinite;
+  --animate-flicker: flicker 4s ease-in-out infinite;
+  --animate-pixel-hover: pixel-shake 0.1s ease-in-out 3;
+  --animate-fade-in: fade-in 0.4s ease-out;
+  --animate-slide-up: slide-up 0.4s ease-out;
+  --animate-slide-in-right: slide-in-right 0.3s ease-out;
+}
+
+/* ========================================
+   Keyframes
+   ======================================== */
+
+@keyframes glitch {
+  0%, 100% { transform: translate(0); filter: none; }
+  20% { transform: translate(-2px, 1px); filter: hue-rotate(90deg); }
+  40% { transform: translate(2px, -1px); filter: hue-rotate(-90deg); }
+  60% { transform: translate(-1px, -2px); filter: hue-rotate(180deg); }
+  80% { transform: translate(1px, 2px); filter: hue-rotate(-180deg); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes noise {
+  0% { opacity: 0.02; }
+  50% { opacity: 0.05; }
+  100% { opacity: 0.02; }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.97; }
+  75% { opacity: 0.99; }
+  90% { opacity: 0.96; }
+}
+
+@keyframes pixel-shake {
+  0%, 100% { transform: translate(0); }
+  25% { transform: translate(2px, -1px); }
+  50% { transform: translate(-2px, 1px); }
+  75% { transform: translate(1px, 2px); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes matrix-fall {
+  0% { transform: translateY(-100%); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* ========================================
+   Base Styles
+   ======================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--color-accent-cyan);
+  color: var(--color-bg-primary);
+}
+
+/* ========================================
+   Custom Scrollbar
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: repeating-linear-gradient(
+    0deg,
+    var(--color-dot-matrix) 0px,
+    var(--color-dot-matrix) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: repeating-linear-gradient(
+    0deg,
+    var(--color-accent-cyan) 0px,
+    var(--color-accent-cyan) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+}
+
+/* Firefox scrollbar */
+@supports (scrollbar-color: auto) {
+  * {
+    scrollbar-color: var(--color-dot-matrix) var(--color-bg-secondary);
+    scrollbar-width: thin;
+  }
+}
+
+/* ========================================
+   Pixel Border Utilities
+   ======================================== */
+
+.pixel-border {
+  --pixel-size: 3px;
+  clip-path: polygon(
+    0% var(--pixel-size),
+    var(--pixel-size) var(--pixel-size),
+    var(--pixel-size) 0%,
+    calc(100% - var(--pixel-size)) 0%,
+    calc(100% - var(--pixel-size)) var(--pixel-size),
+    100% var(--pixel-size),
+    100% calc(100% - var(--pixel-size)),
+    calc(100% - var(--pixel-size)) calc(100% - var(--pixel-size)),
+    calc(100% - var(--pixel-size)) 100%,
+    var(--pixel-size) 100%,
+    var(--pixel-size) calc(100% - var(--pixel-size)),
+    0% calc(100% - var(--pixel-size))
+  );
+}
+
+.pixel-border-sm {
+  --pixel-size: 2px;
+  clip-path: polygon(
+    0% var(--pixel-size),
+    var(--pixel-size) var(--pixel-size),
+    var(--pixel-size) 0%,
+    calc(100% - var(--pixel-size)) 0%,
+    calc(100% - var(--pixel-size)) var(--pixel-size),
+    100% var(--pixel-size),
+    100% calc(100% - var(--pixel-size)),
+    calc(100% - var(--pixel-size)) calc(100% - var(--pixel-size)),
+    calc(100% - var(--pixel-size)) 100%,
+    var(--pixel-size) 100%,
+    var(--pixel-size) calc(100% - var(--pixel-size)),
+    0% calc(100% - var(--pixel-size))
+  );
+}
+
+.pixel-border-lg {
+  --pixel-size: 4px;
+  clip-path: polygon(
+    0% var(--pixel-size),
+    var(--pixel-size) var(--pixel-size),
+    var(--pixel-size) 0%,
+    calc(100% - var(--pixel-size)) 0%,
+    calc(100% - var(--pixel-size)) var(--pixel-size),
+    100% var(--pixel-size),
+    100% calc(100% - var(--pixel-size)),
+    calc(100% - var(--pixel-size)) calc(100% - var(--pixel-size)),
+    calc(100% - var(--pixel-size)) 100%,
+    var(--pixel-size) 100%,
+    var(--pixel-size) calc(100% - var(--pixel-size)),
+    0% calc(100% - var(--pixel-size))
+  );
+}
+
+/* Pixel border with visible outline (uses box-shadow approach) */
+.pixel-outline {
+  box-shadow:
+    inset 3px 3px 0 0 var(--color-border-default),
+    inset -3px -3px 0 0 var(--color-border-default),
+    inset 3px 0 0 0 var(--color-border-default),
+    inset -3px 0 0 0 var(--color-border-default),
+    inset 0 3px 0 0 var(--color-border-default),
+    inset 0 -3px 0 0 var(--color-border-default);
+}
+
+.pixel-outline-active {
+  box-shadow:
+    inset 3px 3px 0 0 var(--color-border-active),
+    inset -3px -3px 0 0 var(--color-border-active),
+    inset 3px 0 0 0 var(--color-border-active),
+    inset -3px 0 0 0 var(--color-border-active),
+    inset 0 3px 0 0 var(--color-border-active),
+    inset 0 -3px 0 0 var(--color-border-active);
+}
+
+/* ========================================
+   Glitch Text Effect
+   ======================================== */
+
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  color: var(--color-accent-cyan);
+  z-index: -1;
+  animation: glitch-shift-1 3s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  color: var(--color-accent-magenta);
+  z-index: -2;
+  animation: glitch-shift-2 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-shift-1 {
+  0%, 95% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  96% { clip-path: inset(20% 0 60% 0); transform: translate(-3px, 0); }
+  97% { clip-path: inset(50% 0 20% 0); transform: translate(3px, 0); }
+  98% { clip-path: inset(10% 0 70% 0); transform: translate(-2px, 0); }
+  99% { clip-path: inset(40% 0 40% 0); transform: translate(2px, 0); }
+}
+
+@keyframes glitch-shift-2 {
+  0%, 95% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  96% { clip-path: inset(60% 0 10% 0); transform: translate(3px, 0); }
+  97% { clip-path: inset(20% 0 50% 0); transform: translate(-3px, 0); }
+  98% { clip-path: inset(70% 0 10% 0); transform: translate(2px, 0); }
+  99% { clip-path: inset(30% 0 50% 0); transform: translate(-2px, 0); }
+}
+
+/* ========================================
+   CRT / Scanline Effect
+   ======================================== */
+
+.crt-effect {
+  position: relative;
+}
+
+.crt-effect::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    var(--color-scanline) 1px,
+    var(--color-scanline) 2px
+  );
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* ========================================
+   Dot Matrix Pattern
+   ======================================== */
+
+.dot-matrix-bg {
+  background-image: radial-gradient(
+    circle,
+    var(--color-dot-matrix) 1px,
+    transparent 1px
+  );
+  background-size: 8px 8px;
+}
+
+/* ========================================
+   MDX Content Prose Styles
+   ======================================== */
+
+.prose-dg {
+  line-height: 1.8;
+}
+
+.prose-dg h1,
+.prose-dg h2,
+.prose-dg h3,
+.prose-dg h4 {
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+}
+
+.prose-dg h1 { font-size: 1.5rem; }
+.prose-dg h2 { font-size: 1.25rem; }
+.prose-dg h3 { font-size: 1.125rem; }
+
+.prose-dg p {
+  margin-bottom: 1em;
+  color: var(--color-text-secondary);
+}
+
+.prose-dg a {
+  color: var(--color-accent-cyan);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-dg a:hover {
+  color: var(--color-text-primary);
+}
+
+.prose-dg code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background-color: var(--color-bg-tertiary);
+  padding: 0.15em 0.4em;
+  border-radius: 0;
+  border: 1px solid var(--color-border-default);
+}
+
+.prose-dg pre {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-default);
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+.prose-dg pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.prose-dg blockquote {
+  border-left: 3px solid var(--color-accent-cyan);
+  padding-left: 1em;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.prose-dg ul,
+.prose-dg ol {
+  padding-left: 1.5em;
+  margin-bottom: 1em;
+  color: var(--color-text-secondary);
+}
+
+.prose-dg li {
+  margin-bottom: 0.5em;
+}
+
+.prose-dg li::marker {
+  color: var(--color-accent-cyan);
+}
+
+.prose-dg hr {
+  border: none;
+  height: 1px;
+  background: var(--color-border-default);
+  margin: 2em 0;
+}
+
+.prose-dg table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+}
+
+.prose-dg th,
+.prose-dg td {
+  padding: 0.5em 1em;
+  border: 1px solid var(--color-border-default);
+  text-align: left;
+}
+
+.prose-dg th {
+  background-color: var(--color-bg-tertiary);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--color-accent-cyan);
+}
+
+.prose-dg td {
+  color: var(--color-text-secondary);
+}

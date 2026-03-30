@@ -1,0 +1,10 @@
+{
+  "title": "第一扇区：基础设定",
+  "order": 1,
+  "entries": [
+    { "slug": "great-fracture", "title": "大断裂", "unlocked": true },
+    { "slug": "grey-mountain", "title": "灰山城", "unlocked": true },
+    { "slug": "reality-overflow", "title": "现实溢出", "unlocked": false },
+    { "slug": "grand-future-computer", "title": "大未来电脑", "unlocked": false }
+  ]
+}

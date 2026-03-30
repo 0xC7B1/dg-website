@@ -1,0 +1,8 @@
+{
+  "title": "第二扇区：组织与势力",
+  "order": 2,
+  "entries": [
+    { "slug": "management-bureau", "title": "管理局", "unlocked": false },
+    { "slug": "data-miners", "title": "数据矿工", "unlocked": false }
+  ]
+}
