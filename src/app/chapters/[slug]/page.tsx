@@ -4,6 +4,7 @@ import { PageTransition } from '@/components/effects/page-transition';
 import { DotMatrixLine } from '@/components/ui/dot-matrix-line';
 import Link from 'next/link';
 import { PixelButton } from '@/components/ui/pixel-button';
+import { redirect } from 'next/navigation';
 
 export function generateStaticParams() {
   return chapters.map((ch) => ({ slug: ch.slug }));
@@ -23,6 +24,10 @@ export default async function ChapterDetailPage({
         <p className="font-mono text-text-tertiary">CHAPTER.NOT_FOUND</p>
       </div>
     );
+  }
+
+  if (chapter.locked) {
+    redirect('/chapters');
   }
 
   const color = getChapterColor(chapter.accentColor);

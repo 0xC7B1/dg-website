@@ -44,6 +44,7 @@ export const chapters: Chapter[] = [
     thumbnail: '/images/chapters/ch3-thumb.png',
     fullImage: '/images/chapters/ch3-full.png',
     description: '暂未开放。',
+    locked: true,
   },
   {
     id: 'chapter-4',
@@ -55,5 +56,6 @@ export const chapters: Chapter[] = [
     thumbnail: '/images/chapters/ch4-thumb.png',
     fullImage: '/images/chapters/ch4-full.png',
     description: '暂未开放。',
+    locked: true,
   },
 ];

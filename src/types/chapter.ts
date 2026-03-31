@@ -10,4 +10,5 @@ export interface Chapter {
   fullImage: string;
   description: string;
   accentColor: ChapterAccent;
+  locked?: boolean;
 }

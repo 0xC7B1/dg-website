@@ -14,17 +14,22 @@ interface ChapterCardProps {
   onTap: () => void;
 }
 
+const LOCK_THUMBNAIL = '/images/chapters/ch-lock.png';
+
 function ChapterCard({ chapter, isExpanded, onHover, onLeave, onTap }: ChapterCardProps) {
   const [imgError, setImgError] = useState(false);
   const colors = getChapterColor(chapter.accentColor);
   const isTouchRef = useRef(false);
   const router = useRouter();
+  const isLocked = !!chapter.locked;
+  const displayThumbnail = isLocked ? LOCK_THUMBNAIL : chapter.thumbnail;
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     isTouchRef.current = e.pointerType === 'touch';
   }, []);
 
   const handleClick = useCallback((e: React.MouseEvent) => {
+    if (isLocked) return;
     if (isTouchRef.current) {
       if (!isExpanded) {
         e.preventDefault();
@@ -35,29 +40,31 @@ function ChapterCard({ chapter, isExpanded, onHover, onLeave, onTap }: ChapterCa
     } else {
       router.push(`/chapters/${chapter.slug}`);
     }
-  }, [isExpanded, onTap, router, chapter.slug]);
+  }, [isLocked, isExpanded, onTap, router, chapter.slug]);
 
   return (
     <div
-      role="link"
-      tabIndex={0}
+      role={isLocked ? undefined : 'link'}
+      tabIndex={isLocked ? -1 : 0}
       className={cn(
-        'relative overflow-hidden transition-all duration-500 ease-in-out pixel-border group cursor-pointer',
+        'relative overflow-hidden transition-all duration-500 ease-in-out pixel-border group',
         'bg-bg-secondary border border-border-default',
         'min-h-[140px] md:min-h-0',
-        isExpanded ? 'flex-[3]' : 'flex-[1]'
+        isLocked
+          ? 'flex-[1] cursor-not-allowed opacity-60 grayscale'
+          : cn('cursor-pointer', isExpanded ? 'flex-[3]' : 'flex-[1]')
       )}
       style={{ '--chapter-accent': colors.hex } as React.CSSProperties}
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
-      onPointerDown={handlePointerDown}
+      onMouseEnter={isLocked ? undefined : onHover}
+      onMouseLeave={isLocked ? undefined : onLeave}
+      onPointerDown={isLocked ? undefined : handlePointerDown}
       onClick={handleClick}
-      onKeyDown={(e) => { if (e.key === 'Enter') router.push(`/chapters/${chapter.slug}`); }}
+      onKeyDown={isLocked ? undefined : (e) => { if (e.key === 'Enter') router.push(`/chapters/${chapter.slug}`); }}
     >
       {/* Background image (falls back to gradient) */}
       {!imgError ? (
         <img
-          src={chapter.thumbnail}
+          src={displayThumbnail}
           alt={chapter.title}
           loading="lazy"
           onError={() => setImgError(true)}
@@ -112,21 +119,23 @@ function ChapterCard({ chapter, isExpanded, onHover, onLeave, onTap }: ChapterCa
 
         {/* Description (only when expanded, delayed to avoid text reflow during card width transition) */}
         <p className={cn(
-          'text-sm text-text-tertiary mt-3 leading-relaxed transition-all duration-300 overflow-hidden',
-          isExpanded ? 'max-h-24 opacity-100 delay-300' : 'max-h-0 opacity-0'
+          'text-sm text-text-tertiary leading-relaxed transition-all duration-300 overflow-hidden',
+          !isLocked && isExpanded ? 'max-h-24 opacity-100 mt-3 delay-300' : 'max-h-0 opacity-0 mt-0'
         )}>
           {chapter.description}
         </p>
 
-        {/* Enter indicator */}
+        {/* Enter indicator / Lock indicator */}
         <div
           className={cn(
             'mt-4 font-mono text-xs tracking-wider transition-all duration-300',
-            isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            isLocked
+              ? 'opacity-70 text-text-tertiary'
+              : cn(isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')
           )}
-          style={{ color: 'var(--chapter-accent)' }}
+          style={isLocked ? undefined : { color: 'var(--chapter-accent)' }}
         >
-          {'>'} ENTER →
+          {isLocked ? '\u{1F512} LOCKED' : <>{'>'}  ENTER →</>}
         </div>
       </div>
 
