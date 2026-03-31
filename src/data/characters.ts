@@ -14,22 +14,22 @@ export const characters: Character[] = [
     info: {
       '性别'：'男', 
       '年龄'：'47' ,
-      '身高'：'175cm'
-      '体重'：'60kg'
+      '身高'：'175cm',
+      '体重'：'60kg',
     },
     identity: '认知科学与义体工程学权威 / 新边缘医疗科技公司首席技术官 /“灰山城计划”联合发起人',
     description: '莫比斯·聂博士，认知科学与义体工程学领域的权威。他身形瘦削，面容带着一种长期沉浸于精密计算和复杂实验所特有的憔悴和专注。在公开场合常以白大褂的形象示人，语调总是如同宣读实验报告一般毫无起伏。作为“灰山城计划”的联合发起人，他是理论家犹大·奥尔波罗博士最重要的工程学搭档，负责将深奥的理论构想转化为可行的技术方案。他的生活似乎完全被工作填满，极少有公开的私人生活。鲜为人知的是，他的原名本是“聂莫”。为了攻克女儿自出生起便罹患的罕见神经疾病——莫比斯综合征，他毅然将自己的名字也改成了“莫比斯”，将这项医学难题背负为自己毕生的誓言。这份决心驱使他投身于前沿的义体技术与脑机接口研究，力求为女儿寻得一线生机。此刻，他正与奥尔波罗博士一同，在遥远而神秘的双峰岛上，为那项可能改变无数人命运的实验倾注全部心力，而他最核心的动力，始终源于病房中那个等待他创造奇迹的女孩。',
     personality: {
-      c: { label: '理性频道', unlocked: false, content: '???' },
-      m: { label: '共情频道', unlocked: false, content: '???' },
-      y: { label: '直觉频道', unlocked: false, content: '???' },
-      k: { label: '阴影频道', unlocked: false, content: '???' },
+      c: { label: '认知信道', unlocked: false, content: '???' },
+      m: { label: '力量信道', unlocked: false, content: '???' },
+      y: { label: '和谐信道', unlocked: false, content: '???' },
+      k: { label: '意志信道', unlocked: false, content: '???' },
     },
   },
   {
     id: 'npc-002',
-    slug: 'xu-chen',
-    name: '许辰',
+    slug: 'Judah Ouroboros',
+    name: '犹大·奥尔波罗',
     type: 'npc',
     avatar: '/images/characters/avatars/xu-chen.png',
     portrait: '/images/characters/portraits/xu-chen.png',
@@ -39,16 +39,16 @@ export const characters: Character[] = [
     info: {
       '性别'：'男', 
       '年龄'：'45' ,
-      '身高'：'192cm'
-      '体重'：'85kg'
+      '身高'：'192cm',
+      '体重'：'85kg',
     },
     identity: '量子物理学界泰斗 / QG网络理论奠基人 /“灰山城计划”联合发起人',
     description: '犹大·奥尔波罗博士，量子物理理论家，国际物理学会最高会士，被誉为QG网络的理论奠基人。他身材高大，精力充沛，深金色的卷发下是一双总是闪烁着热切光芒的眼睛。在学术界，他以洪亮的嗓音、充满感染力的演讲和对待公式如同对待诗歌般的浪漫激情而闻名。奥尔波罗坚信逻辑与秩序之美，崇尚技术能够为人类带来乌托邦的理想未来。作为“灰山城计划”的联合发起人，他与挚友莫比斯·聂博士并肩投身于攻克“脑灰质褪色症”的艰难事业中。在公众和合作伙伴面前，他展现出的是一位才华横溢、意志坚定的科学家形象，善于用严谨的逻辑阐述复杂的概念，并能以惊人的说服力推动项目前进。私下里，他对待朋友与伙伴真诚而炽热，会用力拍打聂的肩膀，也会耐心地给小倩讲解星座的故事，尽管那些内容深奥得远超听众的理解。2038年，他正全身心投入在双峰岛的机密实验项目中，眼中燃烧着改变世界、拯救生命的理想之火。',
     personality: {
-      c: { label: '理性频道', unlocked: false, content: '???' },
-      m: { label: '共情频道', unlocked: false, content: '???' },
-      y: { label: '直觉频道', unlocked: false, content: '???' },
-      k: { label: '阴影频道', unlocked: false, content: '???' },
+      c: { label: '认知信道', unlocked: false, content: '???' },
+      m: { label: '力量信道', unlocked: false, content: '???' },
+      y: { label: '和谐信道', unlocked: false, content: '???' },
+      k: { label: '意志信道', unlocked: false, content: '???' },
     },
   },
   {
@@ -62,17 +62,18 @@ export const characters: Character[] = [
     summary: '刚刚进入灰山城的新参与者。',
     chapter: 'chapter-1',
     info: {
-      '年龄': '???',
-      '职业': '???',
-      '所属': '待定',
+      '性别'：'???', 
+      '年龄'：'???',
+      '身高'：'???',
+      '体重'：'???',
     },
     identity: '身份尚未明确，正在灰山城中寻找自己的位置。',
     description: '一个初入灰山城的新面孔。没有人知道他/她来自哪里，也没有人知道他/她的目的。在这个充满秘密的地方，每个新来者都是一个谜。',
     personality: {
-      c: { label: '理性频道', unlocked: false, content: '???' },
-      m: { label: '共情频道', unlocked: false, content: '???' },
-      y: { label: '直觉频道', unlocked: false, content: '???' },
-      k: { label: '阴影频道', unlocked: false, content: '???' },
+      c: { label: '认知信道', unlocked: false, content: '???' },
+      m: { label: '力量信道', unlocked: false, content: '???' },
+      y: { label: '和谐信道', unlocked: false, content: '???' },
+      k: { label: '意志信道', unlocked: false, content: '???' },
     },
   },
 ];
