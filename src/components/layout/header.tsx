@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Menu } from 'lucide-react';
 import { MobileNav } from './mobile-nav';
+import { useIntroAnimation } from '@/components/effects/intro-animation';
 
 const navItems = [
   { href: '/', label: '首页' },
@@ -19,10 +20,23 @@ const navItems = [
 export function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { phase } = useIntroAnimation();
+
+  // On home page, phase starts at -1 (provider default) then HeroSection drives it.
+  // Navbar appears at phase >= 3. On non-home pages phase stays -1 → always visible.
+  const isHome = pathname === '/';
+  const navbarVisible = !isHome || phase >= 3;
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 h-14 border-b border-border-default bg-bg-primary/80 backdrop-blur-md">
+      <header
+        className={cn(
+          'fixed top-0 left-0 right-0 z-50 h-14 border-b border-border-default bg-bg-primary/80 backdrop-blur-md transition-all duration-500',
+          navbarVisible
+            ? 'translate-y-0 opacity-100'
+            : '-translate-y-full opacity-0'
+        )}
+      >
         <div className="flex items-center h-full">
           {/* Logo — white block from left edge, right side 15° slant */}
           <Link

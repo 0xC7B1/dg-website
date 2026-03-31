@@ -6,6 +6,7 @@ import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { GlitchText } from '@/components/effects/glitch-text';
 import { PixelButton } from '@/components/ui/pixel-button';
+import { useIntroAnimation } from '@/components/effects/intro-animation';
 import Link from 'next/link';
 
 interface HeroSectionProps {
@@ -54,18 +55,22 @@ function HeroLogo({ visible }: { visible: boolean }) {
 export function HeroSection({ className }: HeroSectionProps) {
   const [phase, setPhase] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
+  const { setPhase: setGlobalPhase } = useIntroAnimation();
 
-  // Phase transitions: 0→1 (300ms), 1→2 (1800ms), 2→3 (3000ms)
+  // Phase transitions:
+  //   0→1 (300ms)  logo
+  //   1→2 (1800ms) background + logo shift + CTA
+  //   2→3 (2500ms) navbar
+  //   3→4 (3500ms) scroll indicator
   useEffect(() => {
-    const t1 = setTimeout(() => setPhase(1), 300);
-    const t2 = setTimeout(() => setPhase(2), 1800);
-    const t3 = setTimeout(() => setPhase(3), 3000);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-    };
-  }, []);
+    const timers = [
+      setTimeout(() => { setPhase(1); setGlobalPhase(1); }, 300),
+      setTimeout(() => { setPhase(2); setGlobalPhase(2); }, 1800),
+      setTimeout(() => { setPhase(3); setGlobalPhase(3); }, 2500),
+      setTimeout(() => { setPhase(4); setGlobalPhase(4); }, 3500),
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, [setGlobalPhase]);
 
   // Scroll-based background fade
   const { scrollYProgress } = useScroll({
@@ -140,11 +145,11 @@ export function HeroSection({ className }: HeroSectionProps) {
         </motion.div>
       </motion.div>
 
-      {/* Scroll-down indicator — appears at phase 3 */}
+      {/* Scroll-down indicator — appears at phase 4 */}
       <motion.div
         className="absolute bottom-8 z-10"
         initial={{ opacity: 0 }}
-        animate={phase >= 3 ? { opacity: 0.6 } : { opacity: 0 }}
+        animate={phase >= 4 ? { opacity: 0.6 } : { opacity: 0 }}
         transition={{ duration: 0.5 }}
       >
         <motion.div
