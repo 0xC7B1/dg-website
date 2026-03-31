@@ -141,7 +141,7 @@ src/data/characters.ts → 按 type 筛选 → CharacterList（左） + Characte
 
 **功能：**
 - DocLayout 双栏：左侧目录 + 右侧内容
-- 两个分区：玩家手册（省流版）+ 详细规则书
+- 两个分区：玩家手册 + 详细规则书
 - 规则条文以等宽字体、代码块样式展示
 - 支持锚点滚动跳转
 

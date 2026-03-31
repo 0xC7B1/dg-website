@@ -46,7 +46,7 @@ function HeroLogo({ visible }: { visible: boolean }) {
         className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-[0.15em] text-text-primary"
       />
       <p className="font-mono text-sm md:text-base text-accent-cyan tracking-[0.2em] mt-3 opacity-70">
-        数字幽灵
+        电子分身
       </p>
     </div>
   );

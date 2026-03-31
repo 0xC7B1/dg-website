@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     default: 'DIGITAL GHOST',
     template: '%s | DIGITAL GHOST',
   },
-  description: '数字幽灵 — 一个基于用户生成内容的TRPG企划',
+  description: '电子分身 — 一个基于用户生成内容的TRPG企划',
 };
 
 export default function RootLayout({

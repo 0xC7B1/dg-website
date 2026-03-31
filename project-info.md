@@ -56,7 +56,7 @@ under the hero section, there will be a section to provide more detailed informa
 布局：左右两栏（左侧目录，右侧内容），类似 Google Antigravity 或 Stripe 文档。
 左侧目录包含两部分：
 
-- 玩家手册（省流版）：快速上手、核心机制、常用术语表
+- 玩家手册：快速上手、核心机制、常用术语表
 - 详细规则书：完整 TRPG 规则 v3.2，按章节拆分（角色创建、资源、动作、判定等）
 右侧内容区采用代码块样式展示规则条文，使用等宽字体，重点用高亮。
 

@@ -79,7 +79,7 @@ CMYK — 角色人格档案的四个维度
 };
 
 const sidebarItems = [
-  { id: 'quickstart-header', label: '玩家手册（省流版）', level: 0 },
+  { id: 'quickstart-header', label: '玩家手册', level: 0 },
   ...rulesData.quickstart.map((r) => ({ id: r.id, label: r.title, level: 1 })),
   { id: 'full-rules-header', label: '详细规则书', level: 0 },
   ...rulesData['full-rules'].map((r) => ({ id: r.id, label: r.title, level: 1 })),
@@ -122,7 +122,7 @@ export default function RulesPage() {
           {/* Quickstart section */}
           <div className="mb-12">
             <h2 className="font-mono text-lg text-accent-cyan tracking-[0.15em] mb-4">
-              玩家手册（省流版）
+              玩家手册
             </h2>
             <DotMatrixLine className="mb-6" />
 
