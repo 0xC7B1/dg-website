@@ -5,7 +5,7 @@ project digital ghost is a trpg game based on user generated content. The game a
 
 ## Project Description
 
-dg-website aimed at creating a simple and elegant website to showcase the basic information about the project and creator. The website will include sections such as "about", "chapters", "characters", "lore", "rules", and "gallery".
+dg-website aimed at creating a simple and elegant website to showcase the basic information about the project and creator. The website will include sections such as "about", "chapters", "characters", "lore", "rules", and "creations".
 
 ### About (/)
 
@@ -62,7 +62,7 @@ under the hero section, there will be a section to provide more detailed informa
 
 - 支持锚点跳转（URL 直接定位到某条规则）。
 
-### Gallery (/gallery)
+### Creations (/creations)
 
 布局：顶部两个标签页：“文”和“画”。
 

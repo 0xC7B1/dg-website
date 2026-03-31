@@ -57,7 +57,7 @@ const artworks = [
     title: '灰山城全景',
     author: '示例画师',
     date: '2026-01-20',
-    image: '/images/gallery/grey-mountain-panorama.png',
+    image: '/images/creations/grey-mountain-panorama.png',
     chapter: 'chapter-1',
     width: 1920,
     height: 1080,
@@ -67,7 +67,7 @@ const artworks = [
     title: '数据矿场',
     author: '示例画师',
     date: '2026-02-01',
-    image: '/images/gallery/data-mine.png',
+    image: '/images/creations/data-mine.png',
     chapter: 'chapter-1',
     width: 1200,
     height: 1600,
@@ -75,8 +75,8 @@ const artworks = [
 ];
 
 const tabs = [
-  { value: 'articles', label: '文' },
-  { value: 'artworks', label: '画' },
+  { value: 'writing', label: '文' },
+  { value: 'visual', label: '画' },
 ];
 
 const chapterFilters = [
@@ -88,7 +88,7 @@ const chapterFilters = [
   { value: 'chapter-4', label: '第四章', activeClassName: `${chapterColorMap.key.bgSolid} text-text-primary` },
 ];
 
-export default function GalleryPage() {
+export default function CreationsPage() {
   const [chapterFilter, setChapterFilter] = useState('all');
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
 
@@ -105,9 +105,9 @@ export default function GalleryPage() {
       <div className="mx-auto max-w-7xl px-6 py-8">
         <div className="mb-8">
           <p className="font-mono text-xs text-text-tertiary tracking-[0.3em] mb-2">
-            {'>'} GALLERY.INDEX // 画廊
+            {'>'} CREATIONS.INDEX // 创作
           </p>
-          <h1 className="font-mono text-2xl text-text-primary tracking-wider">画廊</h1>
+          <h1 className="font-mono text-2xl text-text-primary tracking-wider">创作</h1>
         </div>
 
         <FilterBar
@@ -122,9 +122,9 @@ export default function GalleryPage() {
           ]}
         />
 
-        <Tabs tabs={tabs} defaultValue="articles">
-          {/* Articles tab */}
-          <TabsContent value="articles" className="pt-6">
+        <Tabs tabs={tabs} defaultValue="writing">
+          {/* Writing tab */}
+          <TabsContent value="writing" className="pt-6">
             {filteredArticles.length === 0 ? (
               <p className="font-mono text-sm text-text-tertiary text-center py-20">
                 {'>'} NO_RESULTS // 暂无内容
@@ -132,7 +132,7 @@ export default function GalleryPage() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredArticles.map((article) => (
-                  <Link key={article.slug} href={`/gallery/${article.slug}`}>
+                  <Link key={article.slug} href={`/creations/${article.slug}`}>
                     <PixelCard hoverable className="p-5 h-full">
                       <p className="font-mono text-xs text-accent-cyan mb-2">
                         {article.date}
@@ -153,8 +153,8 @@ export default function GalleryPage() {
             )}
           </TabsContent>
 
-          {/* Artworks tab */}
-          <TabsContent value="artworks" className="pt-6">
+          {/* Visual tab */}
+          <TabsContent value="visual" className="pt-6">
             {filteredArtworks.length === 0 ? (
               <p className="font-mono text-sm text-text-tertiary text-center py-20">
                 {'>'} NO_RESULTS // 暂无内容

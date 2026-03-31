@@ -10,8 +10,8 @@
 | `/characters` | `src/app/characters/page.tsx` | Client | 角色数据库 |
 | `/lore` | `src/app/lore/page.tsx` | Client | 设定词典 |
 | `/rules` | `src/app/rules/page.tsx` | Client | 规则书 |
-| `/gallery` | `src/app/gallery/page.tsx` | Client | 画廊 |
-| `/gallery/[slug]` | `src/app/gallery/[slug]/page.tsx` | SSG | 文章详情 |
+| `/creations` | `src/app/creations/page.tsx` | Client | 创作 |
+| `/creations/[slug]` | `src/app/creations/[slug]/page.tsx` | SSG | 文章详情 |
 | `/_not-found` | `src/app/not-found.tsx` | Server | 404 页面 |
 
 ---
@@ -160,9 +160,9 @@ src/data/characters.ts → 按 type 筛选 → CharacterList（左） + Characte
 
 ---
 
-## 画廊 `/gallery`
+## 创作 `/creations`
 
-**文件：** `src/app/gallery/page.tsx`（Client Component）
+**文件：** `src/app/creations/page.tsx`（Client Component）
 
 **功能：**
 - 「文」/「画」标签页切换
@@ -173,7 +173,7 @@ src/data/characters.ts → 按 type 筛选 → CharacterList（左） + Characte
 **数据：**
 - `articles` / `artworks` — 硬编码示例数据
 
-> 后续迭代将改为从 `content/gallery/` 加载。
+> 后续迭代将改为从 `content/creations/` 加载。
 
 **关键组件：**
 - `Tabs` / `TabsContent` — 文/画切换
@@ -187,19 +187,19 @@ src/data/characters.ts → 按 type 筛选 → CharacterList（左） + Characte
 
 ---
 
-## 画廊文章详情 `/gallery/[slug]`
+## 创作文章详情 `/creations/[slug]`
 
-**文件：** `src/app/gallery/[slug]/page.tsx`（SSG Server Component）
+**文件：** `src/app/creations/[slug]/page.tsx`（SSG Server Component）
 
 **功能：**
-- `generateStaticParams()` 从 `content/gallery/articles/` 生成路径
+- `generateStaticParams()` 从 `content/creations/writing/` 生成路径
 - 读取对应 MDX 文件并编译渲染
 - 显示标题、日期、作者、正文
-- 返回画廊按钮
+- 返回创作按钮
 
 **数据流：**
 ```
-content/gallery/articles/{slug}.mdx → getContentFiles() → renderMDX() → 页面渲染
+content/creations/writing/{slug}.mdx → getContentFiles() → renderMDX() → 页面渲染
 ```
 
 ---

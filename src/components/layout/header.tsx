@@ -13,7 +13,7 @@ const navItems = [
   { href: '/characters', label: '角色' },
   { href: '/lore', label: '设定' },
   { href: '/rules', label: '规则' },
-  { href: '/gallery', label: '创作' },
+  { href: '/creations', label: '创作' },
 ];
 
 export function Header() {

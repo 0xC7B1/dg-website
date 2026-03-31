@@ -41,7 +41,7 @@ dg-website/
 │   │   ├── characters/         # /characters
 │   │   ├── lore/               # /lore
 │   │   ├── rules/              # /rules
-│   │   └── gallery/            # /gallery、/gallery/[slug]
+│   │   └── creations/          # /creations、/creations/[slug]
 │   │
 │   ├── components/
 │   │   ├── ui/                 # 设计系统原子组件（10 个）
@@ -52,7 +52,7 @@ dg-website/
 │   │   ├── characters/         # 角色页专用组件
 │   │   ├── lore/               # （预留）
 │   │   ├── rules/              # （预留）
-│   │   └── gallery/            # （预留）
+│   │   └── creations/          # （预留）
 │   │
 │   ├── lib/                    # 工具函数
 │   │   ├── fonts.ts            # next/font 字体配置
@@ -67,7 +67,7 @@ dg-website/
 │   ├── types/                  # TypeScript 类型定义
 │   │   ├── character.ts
 │   │   ├── chapter.ts
-│   │   ├── gallery.ts
+│   │   ├── creation.ts
 │   │   ├── lore.ts
 │   │   └── rules.ts
 │   │
@@ -81,16 +81,16 @@ dg-website/
 │   ├── lore/                   # 按扇区分组的设定词典
 │   │   └── sector-N/           # _meta.json + entry.mdx
 │   ├── rules/                  # quickstart/ + full-rules/
-│   └── gallery/
-│       ├── articles/           # 文章 MDX
-│       └── artworks/           # _index.json 画作元数据
+│   └── creations/
+│       ├── writing/            # 文字创作 MDX
+│       └── visual/             # _index.json 画作元数据
 │
 └── public/                     # 静态资源
     ├── images/
     │   ├── hero/
     │   ├── chapters/
     │   ├── characters/{avatars,portraits}/
-    │   ├── gallery/
+    │   ├── creations/
     │   └── ui/                 # 噪点纹理等 UI 素材
     └── audio/                  # 可选：终端按键音效
 ```
@@ -125,8 +125,8 @@ dg-website/
 | `/characters` | 客户端 | 交互式面板切换 |
 | `/lore` | 客户端 | 单页应用，内容在客户端切换 |
 | `/rules` | 客户端 | 单页应用，滚动与锚点导航 |
-| `/gallery` | 客户端 | 标签页切换 + 筛选 |
-| `/gallery/[slug]` | 静态生成 (SSG) | `generateStaticParams()` 预生成文章详情 |
+| `/creations` | 客户端 | 标签页切换 + 筛选 |
+| `/creations/[slug]` | 静态生成 (SSG) | `generateStaticParams()` 预生成文章详情 |
 
 ## 内容管线
 

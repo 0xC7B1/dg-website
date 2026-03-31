@@ -5,6 +5,6 @@ export const navigation = {
     { href: '/characters', label: '角色' },
     { href: '/lore', label: '设定' },
     { href: '/rules', label: '规则' },
-    { href: '/gallery', label: '画廊' },
+    { href: '/creations', label: '创作' },
   ],
 };

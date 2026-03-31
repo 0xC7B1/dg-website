@@ -33,10 +33,10 @@ content/
 │   └── full-rules/             # 完整版
 │       └── character-creation.mdx
 │
-└── gallery/                    # 画廊
-    ├── articles/               # 文章
+└── creations/                    # 创作
+    ├── writing/                # 文字创作
     │   └── first-impression.mdx
-    └── artworks/               # 画作
+    └── visual/                 # 视觉创作
         └── _index.json         # 画作元数据
 ```
 
@@ -126,15 +126,15 @@ order: 1               # 排序
 
 > **注意：** 与设定词典类似，当前规则数据硬编码在 `src/app/rules/page.tsx` 中，需同步更新。
 
-### 添加画廊文章
+### 添加创作文章
 
-1. 在 `content/gallery/articles/` 创建 MDX 文件
+1. 在 `content/creations/writing/` 创建 MDX 文件
 2. 设置完整 frontmatter
-3. 同时更新 `src/app/gallery/page.tsx` 中的 `articles` 数组
+3. 同时更新 `src/app/creations/page.tsx` 中的 `articles` 数组
 
-### 添加画廊画作
+### 添加创作画作
 
-编辑 `content/gallery/artworks/_index.json`，添加新条目：
+编辑 `content/creations/visual/_index.json`，添加新条目：
 
 ```json
 {
@@ -142,15 +142,15 @@ order: 1               # 排序
   "title": "作品标题",
   "author": "画师名",
   "date": "2026-03-01",
-  "image": "/images/gallery/filename.png",
-  "thumbnail": "/images/gallery/filename-thumb.png",
+  "image": "/images/creations/filename.png",
+  "thumbnail": "/images/creations/filename-thumb.png",
   "chapter": "chapter-1",
   "width": 1920,
   "height": 1080
 }
 ```
 
-将图片文件放入 `public/images/gallery/`。
+将图片文件放入 `public/images/creations/`。
 
 ---
 

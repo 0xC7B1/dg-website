@@ -4,8 +4,8 @@
     "title": "灰山城全景",
     "author": "示例画师",
     "date": "2026-01-20",
-    "image": "/images/gallery/grey-mountain-panorama.png",
-    "thumbnail": "/images/gallery/grey-mountain-panorama.png",
+    "image": "/images/creations/grey-mountain-panorama.png",
+    "thumbnail": "/images/creations/grey-mountain-panorama.png",
     "chapter": "chapter-1",
     "width": 1920,
     "height": 1080
@@ -15,8 +15,8 @@
     "title": "数据矿场",
     "author": "示例画师",
     "date": "2026-02-01",
-    "image": "/images/gallery/data-mine.png",
-    "thumbnail": "/images/gallery/data-mine.png",
+    "image": "/images/creations/data-mine.png",
+    "thumbnail": "/images/creations/data-mine.png",
     "chapter": "chapter-1",
     "width": 1200,
     "height": 1600

@@ -108,7 +108,7 @@ interface RulesSection {
 
 ### Article / Artwork
 
-`src/types/gallery.ts`
+`src/types/creation.ts`
 
 ```typescript
 interface Article {
@@ -175,7 +175,7 @@ interface Artwork {
   { href: '/characters', label: '角色' },
   { href: '/lore', label: '设定' },
   { href: '/rules', label: '规则' },
-  { href: '/gallery', label: '画廊' },
+  { href: '/creations', label: '创作' },
 ]
 ```
 
@@ -197,7 +197,7 @@ interface Artwork {
 }
 ```
 
-### content/gallery/artworks/_index.json
+### content/creations/visual/_index.json
 
 ```json
 [
@@ -206,8 +206,8 @@ interface Artwork {
     "title": "灰山城全景",
     "author": "示例画师",
     "date": "2026-01-20",
-    "image": "/images/gallery/grey-mountain-panorama.png",
-    "thumbnail": "/images/gallery/grey-mountain-panorama.png",
+    "image": "/images/creations/grey-mountain-panorama.png",
+    "thumbnail": "/images/creations/grey-mountain-panorama.png",
     "chapter": "chapter-1",
     "width": 1920,
     "height": 1080
@@ -226,5 +226,5 @@ interface Artwork {
 | 章节全图 | `/images/chapters/ch{N}-full.png` | 16:9 或更宽 |
 | 角色头像 | `/images/characters/avatars/{slug}.png` | 正方形，≥ 80×80 |
 | 角色立绘 | `/images/characters/portraits/{slug}.png` | 3:4 比例 |
-| 画廊画作 | `/images/gallery/{filename}.png` | 任意尺寸，需在 JSON 中声明 width/height |
+| 创作画作 | `/images/creations/{filename}.png` | 任意尺寸，需在 JSON 中声明 width/height |
 | UI 素材 | `/images/ui/` | 噪点纹理、扫描线等 |

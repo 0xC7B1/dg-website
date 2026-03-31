@@ -6,7 +6,7 @@ import { PixelButton } from '@/components/ui/pixel-button';
 import Link from 'next/link';
 
 export function generateStaticParams() {
-  const articles = getContentFiles('gallery/articles');
+  const articles = getContentFiles('creations/writing');
   return articles.map((a) => ({ slug: a.slug }));
 }
 
@@ -16,7 +16,7 @@ export default async function ArticleDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const articles = getContentFiles('gallery/articles');
+  const articles = getContentFiles('creations/writing');
   const article = articles.find((a) => a.slug === slug);
 
   if (!article) {
@@ -52,8 +52,8 @@ export default async function ArticleDetailPage({
 
         <DotMatrixLine className="my-8" />
 
-        <Link href="/gallery">
-          <PixelButton variant="ghost">← 返回画廊</PixelButton>
+        <Link href="/creations">
+          <PixelButton variant="ghost">← 返回创作</PixelButton>
         </Link>
       </article>
     </PageTransition>

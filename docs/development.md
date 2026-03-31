@@ -94,7 +94,7 @@ import { PixelButton } from '../../../components/ui/pixel-button';
 - 需要交互（useState、useEffect、事件处理）的组件标记 `'use client'`
 - 仅渲染内容的组件默认为 Server Component（不加 `'use client'`）
 - 首页 `page.tsx` 是 Server Component（构建时渲染 MDX）
-- 其他页面（chapters/characters/lore/rules/gallery）是 Client Component
+- 其他页面（chapters/characters/lore/rules/creations）是 Client Component
 
 ---
 
@@ -193,7 +193,7 @@ const content = await renderMDX(files[0].content);  // 编译为 React 组件
 
 1. **设定词典和规则数据硬编码**：当前 `/lore` 和 `/rules` 页面的数据写死在页面文件中，未从 `content/` 目录动态加载。后续需要实现文件系统加载。
 
-2. **画廊数据硬编码**：`/gallery` 页面的文章和画作列表同样硬编码，需改为从内容文件加载。
+2. **创作数据硬编码**：`/creations` 页面的文章和画作列表同样硬编码，需改为从内容文件加载。
 
 3. **图片占位**：所有图片位置使用文字占位符（角色首字母、作品标题），需要替换为实际图片素材。
 
