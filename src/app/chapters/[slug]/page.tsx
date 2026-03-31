@@ -1,4 +1,5 @@
 import { chapters } from '@/data/chapters';
+import { getChapterColor } from '@/lib/chapter-colors';
 import { PageTransition } from '@/components/effects/page-transition';
 import { DotMatrixLine } from '@/components/ui/dot-matrix-line';
 import Link from 'next/link';
@@ -24,25 +25,27 @@ export default async function ChapterDetailPage({
     );
   }
 
+  const color = getChapterColor(chapter.accentColor);
+
   return (
     <PageTransition>
       <div className="mx-auto max-w-3xl px-6 py-16 text-center">
-        <p className="font-mono text-xs text-accent-cyan tracking-[0.3em] mb-4">
+        <p className={`font-mono text-xs ${color.text} tracking-[0.3em] mb-4`}>
           CHAPTER.{String(chapter.number).padStart(2, '0')}
         </p>
         <h1 className="font-mono text-3xl text-text-primary tracking-wider mb-2">
           {chapter.title}
         </h1>
         {chapter.subtitle && (
-          <p className="font-mono text-lg text-text-secondary mb-6">{chapter.subtitle}</p>
+          <p className={`font-mono text-lg ${color.text} opacity-70 mb-6`}>{chapter.subtitle}</p>
         )}
 
         <DotMatrixLine className="mx-auto max-w-xs mb-8" />
 
         <p className="text-text-secondary leading-relaxed mb-8">{chapter.description}</p>
 
-        <div className="border border-border-default pixel-border bg-bg-secondary p-8">
-          <p className="font-mono text-sm text-text-tertiary tracking-wider mb-4">
+        <div className={`border ${color.border} pixel-border ${color.bg} p-8`}>
+          <p className={`font-mono text-sm ${color.text} tracking-wider mb-4`}>
             {'>'} CONTENT.STATUS: PENDING
           </p>
           <p className="text-text-locked text-sm">
