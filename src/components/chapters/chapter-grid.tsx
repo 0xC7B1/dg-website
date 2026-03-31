@@ -77,10 +77,10 @@ function ChapterCard({ chapter, isExpanded, onHover, onLeave }: ChapterCardProps
           </p>
         )}
 
-        {/* Description (only when expanded) */}
+        {/* Description (only when expanded, delayed to avoid text reflow during card width transition) */}
         <p className={cn(
           'text-sm text-text-tertiary mt-3 leading-relaxed transition-all duration-300 overflow-hidden',
-          isExpanded ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0'
+          isExpanded ? 'max-h-24 opacity-100 delay-300' : 'max-h-0 opacity-0'
         )}>
           {chapter.description}
         </p>
