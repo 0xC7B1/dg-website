@@ -13,7 +13,7 @@ const navItems = [
   { href: '/characters', label: '角色' },
   { href: '/lore', label: '设定' },
   { href: '/rules', label: '规则' },
-  { href: '/gallery', label: '画廊' },
+  { href: '/gallery', label: '创作' },
 ];
 
 export function Header() {
@@ -22,18 +22,21 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 border-b border-border-default bg-bg-primary/80 backdrop-blur-md">
-        <div className="mx-auto max-w-7xl flex items-center justify-between px-6 h-14">
-          {/* Logo */}
+      <header className="fixed top-0 left-0 right-0 z-50 h-14 border-b border-border-default bg-bg-primary/80 backdrop-blur-md">
+        <div className="flex items-center h-full">
+          {/* Logo — white block from left edge, right side 15° slant */}
           <Link
             href="/"
-            className="font-mono text-lg tracking-[0.2em] text-accent-cyan hover:animate-glitch transition-colors"
+            className="flex items-center h-full bg-accent-white pl-6 pr-8 shrink-0"
+            style={{ clipPath: 'polygon(0 0, 100% 0, calc(100% - 15px) 100%, 0 100%)' }}
           >
-            DIGITAL_GHOST
+            <span className="font-mono text-lg tracking-[0.2em] text-bg-primary">
+              DIGITAL_GHOST
+            </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          {/* Desktop Nav — right aligned, contained */}
+          <nav className="hidden md:flex items-center h-full ml-auto pr-6">
             {navItems.map((item) => {
               const isActive =
                 item.href === '/'
@@ -45,13 +48,29 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    'px-4 py-2 font-mono text-xs tracking-[0.15em] uppercase transition-colors duration-150',
-                    isActive
-                      ? 'text-accent-cyan'
-                      : 'text-text-secondary hover:text-text-primary'
+                    'relative flex items-center h-full px-4 group',
+                    isActive && 'z-10'
                   )}
                 >
-                  {item.label}
+                  {/* Skewed parallelogram background (15° forward lean) */}
+                  <span
+                    className={cn(
+                      'absolute inset-y-0 inset-x-0 -skew-x-[15deg] transition-all duration-200',
+                      isActive
+                        ? 'bg-accent-white'
+                        : 'bg-transparent group-hover:bg-accent-white/10'
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      'relative font-mono text-xs tracking-[0.15em] uppercase transition-colors duration-150',
+                      isActive
+                        ? 'text-bg-primary'
+                        : 'text-text-secondary group-hover:text-text-primary'
+                    )}
+                  >
+                    {item.label}
+                  </span>
                 </Link>
               );
             })}
@@ -60,7 +79,7 @@ export function Header() {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileOpen(true)}
-            className="md:hidden text-text-secondary hover:text-text-primary transition-colors"
+            className="md:hidden ml-auto pr-6 text-text-secondary hover:text-text-primary transition-colors"
             aria-label="打开菜单"
           >
             <Menu className="h-5 w-5" />

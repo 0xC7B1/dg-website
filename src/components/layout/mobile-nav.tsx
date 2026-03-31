@@ -47,7 +47,7 @@ export function MobileNav({ items, open, onClose }: MobileNavProps) {
             className="fixed top-0 right-0 bottom-0 z-50 w-72 bg-bg-secondary border-l border-border-default"
           >
             <div className="flex items-center justify-between p-6 border-b border-border-default">
-              <span className="font-mono text-sm text-accent-cyan tracking-wider">
+              <span className="font-mono text-sm text-text-primary tracking-wider">
                 MENU
               </span>
               <button
@@ -72,9 +72,9 @@ export function MobileNav({ items, open, onClose }: MobileNavProps) {
                     href={item.href}
                     onClick={onClose}
                     className={cn(
-                      'px-4 py-3 font-mono text-sm tracking-[0.15em] uppercase transition-colors duration-150 border-l-2',
+                      'relative px-4 py-3 font-mono text-sm tracking-[0.15em] uppercase transition-colors duration-150 border-l-2',
                       isActive
-                        ? 'border-accent-cyan text-accent-cyan bg-bg-hover'
+                        ? 'border-accent-white text-accent-white bg-gradient-to-r from-accent-white/10 to-transparent'
                         : 'border-transparent text-text-secondary hover:text-text-primary hover:bg-bg-hover'
                     )}
                   >

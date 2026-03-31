@@ -17,6 +17,9 @@
   --color-text-tertiary: #55556a;
   --color-text-locked: #44445a;
 
+  /* UI system accent — global interactive elements */
+  --color-accent-ui: #00cccc;
+
   /* Accents — WCMYK mapped (chapter accent system) */
   --color-accent-white: #d0d0dc;
   --color-accent-cyan: #00cccc;
@@ -30,7 +33,7 @@
 
   /* Borders */
   --color-border-default: #2a2a3a;
-  --color-border-active: #00cccc;
+  --color-border-active: #00cccc; /* matches accent-ui */
 
   /* Effects */
   --color-dot-matrix: #33334a;
@@ -127,7 +130,7 @@ body {
 }
 
 ::selection {
-  background-color: var(--color-accent-cyan);
+  background-color: var(--color-accent-ui);
   color: var(--color-bg-primary);
 }
 
@@ -158,8 +161,8 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: repeating-linear-gradient(
     0deg,
-    var(--color-accent-cyan) 0px,
-    var(--color-accent-cyan) 2px,
+    var(--color-accent-ui) 0px,
+    var(--color-accent-ui) 2px,
     transparent 2px,
     transparent 4px
   );
@@ -362,7 +365,7 @@ body {
 }
 
 .prose-dg a {
-  color: var(--color-accent-cyan);
+  color: var(--color-accent-ui);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -395,7 +398,7 @@ body {
 }
 
 .prose-dg blockquote {
-  border-left: 3px solid var(--color-accent-cyan);
+  border-left: 3px solid var(--color-accent-ui);
   padding-left: 1em;
   color: var(--color-text-secondary);
   font-style: italic;
@@ -413,7 +416,7 @@ body {
 }
 
 .prose-dg li::marker {
-  color: var(--color-accent-cyan);
+  color: var(--color-accent-ui);
 }
 
 .prose-dg hr {
@@ -440,7 +443,7 @@ body {
   background-color: var(--color-bg-tertiary);
   font-family: var(--font-mono);
   font-size: 0.875rem;
-  color: var(--color-accent-cyan);
+  color: var(--color-accent-ui);
 }
 
 .prose-dg td {
