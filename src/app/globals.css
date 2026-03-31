@@ -17,7 +17,8 @@
   --color-text-tertiary: #55556a;
   --color-text-locked: #44445a;
 
-  /* Accents — CMYK mapped */
+  /* Accents — WCMYK mapped (chapter accent system) */
+  --color-accent-white: #d0d0dc;
   --color-accent-cyan: #00cccc;
   --color-accent-magenta: #cc0066;
   --color-accent-yellow: #cccc00;

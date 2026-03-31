@@ -1,6 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
+import { getChapterColor } from '@/lib/chapter-colors';
 import type { Chapter } from '@/types/chapter';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -14,6 +15,7 @@ interface ChapterCardProps {
 
 function ChapterCard({ chapter, isExpanded, onHover, onLeave }: ChapterCardProps) {
   const [imgError, setImgError] = useState(false);
+  const colors = getChapterColor(chapter.accentColor);
 
   return (
     <Link
@@ -24,6 +26,7 @@ function ChapterCard({ chapter, isExpanded, onHover, onLeave }: ChapterCardProps
         'min-h-[140px] md:min-h-0',
         isExpanded ? 'flex-[3]' : 'flex-[1]'
       )}
+      style={{ '--chapter-accent': colors.hex } as React.CSSProperties}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
@@ -50,15 +53,21 @@ function ChapterCard({ chapter, isExpanded, onHover, onLeave }: ChapterCardProps
       <div className="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/60 to-transparent" />
 
       {/* Hover overlay */}
-      <div className={cn(
-        'absolute inset-0 bg-accent-cyan/5 transition-opacity duration-300',
-        isExpanded ? 'opacity-100' : 'opacity-0'
-      )} />
+      <div
+        className={cn(
+          'absolute inset-0 transition-opacity duration-300',
+          isExpanded ? 'opacity-100' : 'opacity-0'
+        )}
+        style={{ backgroundColor: colors.hex, opacity: isExpanded ? 0.05 : 0 }}
+      />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col justify-end h-full p-3 md:p-6">
         {/* Chapter number */}
-        <span className="font-mono text-xs text-accent-cyan tracking-[0.3em] mb-2">
+        <span
+          className="font-mono text-xs tracking-[0.3em] mb-2"
+          style={{ color: 'var(--chapter-accent)' }}
+        >
           CHAPTER.{String(chapter.number).padStart(2, '0')}
         </span>
 
@@ -86,19 +95,25 @@ function ChapterCard({ chapter, isExpanded, onHover, onLeave }: ChapterCardProps
         </p>
 
         {/* Enter indicator */}
-        <div className={cn(
-          'mt-4 font-mono text-xs text-accent-cyan tracking-wider transition-all duration-300',
-          isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-        )}>
+        <div
+          className={cn(
+            'mt-4 font-mono text-xs tracking-wider transition-all duration-300',
+            isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          )}
+          style={{ color: 'var(--chapter-accent)' }}
+        >
           {'>'} ENTER →
         </div>
       </div>
 
       {/* Top border accent */}
-      <div className={cn(
-        'absolute top-0 left-0 right-0 h-[2px] bg-accent-cyan transition-opacity duration-300',
-        isExpanded ? 'opacity-100' : 'opacity-0'
-      )} />
+      <div
+        className={cn(
+          'absolute top-0 left-0 right-0 h-[2px] transition-opacity duration-300',
+          isExpanded ? 'opacity-100' : 'opacity-0'
+        )}
+        style={{ backgroundColor: 'var(--chapter-accent)' }}
+      />
     </Link>
   );
 }

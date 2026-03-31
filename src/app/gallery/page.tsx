@@ -9,6 +9,7 @@ import { DotMatrixLine } from '@/components/ui/dot-matrix-line';
 import { FilterBar } from '@/components/ui/filter-bar';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { chapterColorMap, type ChapterAccent } from '@/lib/chapter-colors';
 
 function ArtworkImage({ artwork }: { artwork: typeof artworks[number] }) {
   const [imgError, setImgError] = useState(false);
@@ -80,11 +81,11 @@ const tabs = [
 
 const chapterFilters = [
   { value: 'all', label: '全部' },
-  { value: 'prologue', label: '序章' },
-  { value: 'chapter-1', label: '第一章' },
-  { value: 'chapter-2', label: '第二章' },
-  { value: 'chapter-3', label: '第三章' },
-  { value: 'chapter-4', label: '第四章' },
+  { value: 'prologue', label: '序章', activeClassName: `${chapterColorMap.white.bgSolid} text-bg-primary` },
+  { value: 'chapter-1', label: '第一章', activeClassName: `${chapterColorMap.cyan.bgSolid} text-bg-primary` },
+  { value: 'chapter-2', label: '第二章', activeClassName: `${chapterColorMap.magenta.bgSolid} text-bg-primary` },
+  { value: 'chapter-3', label: '第三章', activeClassName: `${chapterColorMap.yellow.bgSolid} text-bg-primary` },
+  { value: 'chapter-4', label: '第四章', activeClassName: `${chapterColorMap.key.bgSolid} text-text-primary` },
 ];
 
 export default function GalleryPage() {

@@ -6,6 +6,8 @@ import { type ReactNode } from 'react';
 interface FilterOption {
   value: string;
   label: string;
+  /** Optional custom active class (overrides default cyan) */
+  activeClassName?: string;
 }
 
 interface FilterBarProps {
@@ -34,7 +36,7 @@ export function FilterBar({ filters, className }: FilterBarProps) {
                 className={cn(
                   'px-3 py-1 text-xs font-mono transition-colors duration-150 pixel-border-sm',
                   filter.value === opt.value
-                    ? 'bg-accent-cyan text-bg-primary'
+                    ? (opt.activeClassName ?? 'bg-accent-cyan text-bg-primary')
                     : 'bg-bg-tertiary text-text-secondary hover:text-text-primary hover:bg-bg-hover'
                 )}
               >

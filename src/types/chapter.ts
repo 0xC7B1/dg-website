@@ -1,3 +1,5 @@
+import type { ChapterAccent } from '@/lib/chapter-colors';
+
 export interface Chapter {
   id: string;
   slug: string;
@@ -7,4 +9,5 @@ export interface Chapter {
   thumbnail: string;
   fullImage: string;
   description: string;
+  accentColor: ChapterAccent;
 }
