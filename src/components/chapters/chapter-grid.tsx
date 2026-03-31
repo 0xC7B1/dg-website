@@ -21,6 +21,7 @@ function ChapterCard({ chapter, isExpanded, onHover, onLeave }: ChapterCardProps
       className={cn(
         'relative overflow-hidden transition-all duration-500 ease-in-out pixel-border group',
         'bg-bg-secondary border border-border-default',
+        'min-h-[140px] md:min-h-0',
         isExpanded ? 'flex-[3]' : 'flex-[1]'
       )}
       onMouseEnter={onHover}
@@ -55,7 +56,7 @@ function ChapterCard({ chapter, isExpanded, onHover, onLeave }: ChapterCardProps
       )} />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col justify-end h-full p-6">
+      <div className="relative z-10 flex flex-col justify-end h-full p-3 md:p-6">
         {/* Chapter number */}
         <span className="font-mono text-xs text-accent-cyan tracking-[0.3em] mb-2">
           CHAPTER.{String(chapter.number).padStart(2, '0')}
@@ -111,7 +112,7 @@ export function ChapterGrid({ chapters, className }: ChapterGridProps) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
-    <div className={cn('flex flex-col md:flex-row gap-3 h-[70vh]', className)}>
+    <div className={cn('flex flex-col md:flex-row gap-3 md:h-[70vh]', className)}>
       {chapters.map((chapter) => (
         <ChapterCard
           key={chapter.id}
