@@ -3,25 +3,46 @@
 import { cn } from '@/lib/utils';
 import { getChapterColor } from '@/lib/chapter-colors';
 import type { Chapter } from '@/types/chapter';
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState, useCallback, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface ChapterCardProps {
   chapter: Chapter;
   isExpanded: boolean;
   onHover: () => void;
   onLeave: () => void;
+  onTap: () => void;
 }
 
-function ChapterCard({ chapter, isExpanded, onHover, onLeave }: ChapterCardProps) {
+function ChapterCard({ chapter, isExpanded, onHover, onLeave, onTap }: ChapterCardProps) {
   const [imgError, setImgError] = useState(false);
   const colors = getChapterColor(chapter.accentColor);
+  const isTouchRef = useRef(false);
+  const router = useRouter();
+
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    isTouchRef.current = e.pointerType === 'touch';
+  }, []);
+
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    if (isTouchRef.current) {
+      if (!isExpanded) {
+        e.preventDefault();
+        onTap();
+      } else {
+        router.push(`/chapters/${chapter.slug}`);
+      }
+    } else {
+      router.push(`/chapters/${chapter.slug}`);
+    }
+  }, [isExpanded, onTap, router, chapter.slug]);
 
   return (
-    <Link
-      href={`/chapters/${chapter.slug}`}
+    <div
+      role="link"
+      tabIndex={0}
       className={cn(
-        'relative overflow-hidden transition-all duration-500 ease-in-out pixel-border group',
+        'relative overflow-hidden transition-all duration-500 ease-in-out pixel-border group cursor-pointer',
         'bg-bg-secondary border border-border-default',
         'min-h-[140px] md:min-h-0',
         isExpanded ? 'flex-[3]' : 'flex-[1]'
@@ -29,6 +50,9 @@ function ChapterCard({ chapter, isExpanded, onHover, onLeave }: ChapterCardProps
       style={{ '--chapter-accent': colors.hex } as React.CSSProperties}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
+      onPointerDown={handlePointerDown}
+      onClick={handleClick}
+      onKeyDown={(e) => { if (e.key === 'Enter') router.push(`/chapters/${chapter.slug}`); }}
     >
       {/* Background image (falls back to gradient) */}
       {!imgError ? (
@@ -114,7 +138,7 @@ function ChapterCard({ chapter, isExpanded, onHover, onLeave }: ChapterCardProps
         )}
         style={{ backgroundColor: 'var(--chapter-accent)' }}
       />
-    </Link>
+    </div>
   );
 }
 
@@ -135,6 +159,7 @@ export function ChapterGrid({ chapters, className }: ChapterGridProps) {
           isExpanded={hoveredId === chapter.id}
           onHover={() => setHoveredId(chapter.id)}
           onLeave={() => setHoveredId(null)}
+          onTap={() => setHoveredId(hoveredId === chapter.id ? null : chapter.id)}
         />
       ))}
     </div>
