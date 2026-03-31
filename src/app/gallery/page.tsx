@@ -80,6 +80,7 @@ const tabs = [
 
 const chapterFilters = [
   { value: 'all', label: '全部' },
+  { value: 'prologue', label: '序章' },
   { value: 'chapter-1', label: '第一章' },
   { value: 'chapter-2', label: '第二章' },
   { value: 'chapter-3', label: '第三章' },
